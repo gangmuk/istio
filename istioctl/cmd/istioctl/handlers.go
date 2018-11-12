@@ -1,4 +1,4 @@
-// Copyright 2017 Istio Authors
+// Copyright 2018 Istio Authors
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,21 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-syntax = "proto3";
+package main
 
-package grpecho;
+import (
+	"strings"
+)
 
-// DO NOT CHANGE THIS NAME. The test system will fail in unpredictable ways
-// because something (most probably Bazel) is caching the generated pb.go
-// files and refuses to flush the cache, making every PR to pilot fail.
-service EchoTestService {
-  rpc Echo(EchoRequest) returns (EchoResponse);
-}
+// Uses proxyName to infer namespace if the passed proxyName contains namespace information.
+// Otherwise uses the namespace value passed into the function
+func inferPodInfo(proxyName, namespace string) (string, string) {
+	parsedProxy := strings.Split(proxyName, ".")
 
-message EchoRequest {
-  string message = 1;
-}
-
-message EchoResponse {
-  string message = 1;
+	if len(parsedProxy) == 1 {
+		return proxyName, namespace
+	}
+	return parsedProxy[0], parsedProxy[1]
 }
