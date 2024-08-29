@@ -90,7 +90,8 @@ else
 endif
 
 # Optional file including user-specific settings (HUB, TAG, etc)
--include .istiorc.mk
+# -include .istiorc.mk # original code
+include .istiorc.mk # new code (basically remove -)
 
 # Environment for tests, the directory containing istio and deps binaries.
 # Typically same as GOPATH/bin, so tests work seamlessly with IDEs.
