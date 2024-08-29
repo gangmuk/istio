@@ -27,7 +27,7 @@ pilot/pkg/proxy/envoy/envoy
 # lint
 lintconfig.gen.json
 .istiorc
-.istiorc.mk
+#.istiorc.mk # Gangmuk. we will use it
 # codegen stuff
 bin/adapterlinter
 bin/protoc-gen-gogoslick*
